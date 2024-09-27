@@ -10,3 +10,8 @@
 Media Type媒体类型
 - 对应requests包该如何使用
 - 服务器一个接口会同时支持解析多种内容类型，如django-rest-framework默认支持
+| Header | Header | Header |
+|--------|--------|--------|
+| A| Cell | Cell |
+| B | Cell | Cell |
+| C | Cell | Cell | 
