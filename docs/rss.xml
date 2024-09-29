@@ -1,5 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Blog Title</title><link>https://Spute.github.io/feiyu.blog</link><description>Blog description</description><copyright>Blog Title</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://Spute.github.io/feiyu.blog</link></image><lastBuildDate>Sun, 29 Sep 2024 02:38:12 +0000</lastBuildDate><managingEditor>Blog Title</managingEditor><ttl>60</ttl><webMaster>Blog Title</webMaster><item><title>Python Web系统单体架构</title><link>https://Spute.github.io/feiyu.blog/post/Python%20Web-xi-tong-dan-ti-jia-gou.html</link><description># 前言&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Blog Title</title><link>https://Spute.github.io/feiyu.blog</link><description>Blog description</description><copyright>Blog Title</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://Spute.github.io/feiyu.blog</link></image><lastBuildDate>Sun, 29 Sep 2024 10:47:02 +0000</lastBuildDate><managingEditor>Blog Title</managingEditor><ttl>60</ttl><webMaster>Blog Title</webMaster><item><title>自建图床</title><link>https://Spute.github.io/feiyu.blog/post/zi-jian-tu-chuang.html</link><description>## github的图片机制&#13;
+- 在code中存在的文件，无法直接访问&#13;
+```&#13;
+# 1-1. Github raw 链接&#13;
+https://raw.githubusercontent.com/leegical/Blog_img/main/md_img202305061640828.png&#13;
+# 1-2. Github 仓库文件链接&#13;
+https://github.com/leegical/Blog_img/blob/main/md_img202305061640828.png&#13;
+# issue中上传的图片&#13;
+https://private-user-images.githubusercontent.com/40705851/371846442-52484336-80a7-46bb-8a0b-644df34216ff.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Mjc2MDYzMzYsIm5iZiI6MTcyNzYwNjAzNiwicGF0aCI6Ii80MDcwNTg1MS8zNzE4NDY0NDItNTI0ODQzMzYtODBhNy00NmJiLThhMGItNjQ0ZGYzNDIxNmZmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA5MjklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwOTI5VDEwMzM1NlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTczNDRmYmM4MzU1ZDFkMTVmMjhjMzI5ZjBhNjhjYTA4MzBjMDQyNmYyN2Q2MzE3YWQ0MzgwNzg4OTM0ZTAxYmImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.WCSl2pRNVkrN1-gdpeoE59ip7srg1Y9z9bc56fS2r_Q&#13;
+``` &#13;
+&#13;
+## pages实现静态网页&#13;
+- 写死的静态网页好像只需在仓库中，根目录中包含index.html就行了&#13;
+- 另一种方式，可以使用github的actions设置逻辑自动修改网页内容。</description><guid isPermaLink="true">https://Spute.github.io/feiyu.blog/post/zi-jian-tu-chuang.html</guid><pubDate>Sun, 29 Sep 2024 10:46:35 +0000</pubDate></item><item><title>Python Web系统单体架构</title><link>https://Spute.github.io/feiyu.blog/post/Python%20Web-xi-tong-dan-ti-jia-gou.html</link><description># 前言&#13;
 &#13;
 系统架构图是系统开发、维护和管理过程中不可或缺的工具，它可以帮助开发者更高效地进行系统设计和开发。</description><guid isPermaLink="true">https://Spute.github.io/feiyu.blog/post/Python%20Web-xi-tong-dan-ti-jia-gou.html</guid><pubDate>Fri, 27 Sep 2024 09:57:59 +0000</pubDate></item><item><title>python扫盲篇：高级解包</title><link>https://Spute.github.io/feiyu.blog/post/python-sao-mang-pian-%EF%BC%9A-gao-ji-jie-bao.html</link><description># 前言&#13;
 &#13;
