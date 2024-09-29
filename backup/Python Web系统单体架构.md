@@ -9,6 +9,8 @@
 *   服务级别：Web服务、数据库服务、任务队列服务
 *   组件级别：图中显示了主要的系统组件，如Nginx、Django、数据库等。
 
+![test.jpg](https://raw.githubusercontent.com/Spute/news12.github.io/refs/heads/main/assets/css/images/bg.jpg)
+
 ![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/ef01c9fc2980428c8a58087cc1d84aaf~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg56iL5bqP5ZGY6Z2e6bG8:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMzM2ODU1OTM1OTgzNTc1NyJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1728035783&x-orig-sign=qoxyf%2FDU4TkiA1WfnkT78yZy5O8%3D)
 
 # 一些观点
