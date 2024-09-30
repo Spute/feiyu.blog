@@ -11,10 +11,12 @@
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
 <meta name="description" content="- 架构的主线：如何做到高性能、高可用、高扩展？
-- 天下没有新鲜事，同样的问题很多人已经碰到了，存在可以借鉴的相关经验。">
+- 天下没有新鲜事，同样的问题很多人已经碰到了，有哪些相关经验可以借鉴的？
+  - 高性能的方案有读写分离、数据库分库分表、缓存、IO多路复用、负载均衡。">
 <meta property="og:title" content="架构的学习笔记">
 <meta property="og:description" content="- 架构的主线：如何做到高性能、高可用、高扩展？
-- 天下没有新鲜事，同样的问题很多人已经碰到了，存在可以借鉴的相关经验。">
+- 天下没有新鲜事，同样的问题很多人已经碰到了，有哪些相关经验可以借鉴的？
+  - 高性能的方案有读写分离、数据库分库分表、缓存、IO多路复用、负载均衡。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://Spute.github.io/feiyu.blog/post/jia-gou-de-xue-xi-bi-ji.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
@@ -76,19 +78,31 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
     <div id="content">
 <div class="markdown-body" id="postBody"><ul>
-<li>架构的主线：如何做到高性能、高可用、高扩展？</li>
-<li>天下没有新鲜事，同样的问题很多人已经碰到了，存在可以借鉴的相关经验。</li>
-<li>比如，
+<li>
+<p>架构的主线：如何做到高性能、高可用、高扩展？</p>
+</li>
+<li>
+<p>天下没有新鲜事，同样的问题很多人已经碰到了，有哪些相关经验可以借鉴的？</p>
 <ul>
-<li>高性能的方案有IO多路复用、数据库分库分表、</li>
-<li>高可用的主从复杂、集群。</li>
-<li>高扩展的
+<li>高性能的方案有读写分离、数据库分库分表、缓存、IO多路复用、负载均衡。</li>
+<li>高可用的主从、主备方案、集群、异地多活、服务降级。</li>
+<li>高扩展相关的。
 <ul>
-<li>分层架构。CS/BS架构、J2EE系统。考虑单个服务的情况。</li>
+<li>分层架构。CS/BS架构、java企业应用开发平台架构。考虑单个服务的情况。</li>
 <li>面向服务架构SOA、微服务。这两种架构相对于分层架构，讨论的是服务的拆分、互相调用。</li>
-<li>插件架构</li>
+<li>插件架构。</li>
 </ul>
 </li>
+</ul>
+</li>
+<li>
+<p>高扩展作为重点。</p>
+</li>
+<li>
+<p>服务拆分的问题？保持高颗粒度的单体架构，还是细颗粒的微服务架构？比如通用的注册登录、用户管理服务。</p>
+<ul>
+<li>合理的冗余</li>
+<li></li>
 </ul>
 </li>
 </ul></div>
