@@ -10,21 +10,11 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="# Media Type媒体类型是什么
-- http协议比较关键的请求头：Content-Type
-- https://datatracker.ietf.org/doc/html/rfc7231#autoid-8
-
-## Media Type简介
-
-- 媒体类型由主类型和子类型组成。">
+<meta name="description" content="# 前言
+- http报文由起始行、消息头、空行和消息体四部分组成（请求报文和响应报文相同）。">
 <meta property="og:title" content="http协议媒体类型">
-<meta property="og:description" content="# Media Type媒体类型是什么
-- http协议比较关键的请求头：Content-Type
-- https://datatracker.ietf.org/doc/html/rfc7231#autoid-8
-
-## Media Type简介
-
-- 媒体类型由主类型和子类型组成。">
+<meta property="og:description" content="# 前言
+- http报文由起始行、消息头、空行和消息体四部分组成（请求报文和响应报文相同）。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://Spute.github.io/feiyu.blog/post/http-xie-yi-mei-ti-lei-xing.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
@@ -53,7 +43,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     body {padding: 8px;}
     .postTitle{font-size:24px;}
 }
-
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
 </style>
 
 
@@ -85,54 +85,198 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h1>Media Type媒体类型是什么</h1>
+<div class="markdown-body" id="postBody"><h1>前言</h1>
 <ul>
-<li>http协议比较关键的请求头：Content-Type</li>
-<li><a href="https://datatracker.ietf.org/doc/html/rfc7231#autoid-8" rel="nofollow">https://datatracker.ietf.org/doc/html/rfc7231#autoid-8</a></li>
-</ul>
-<h2>Media Type简介</h2>
-<ul>
-<li>媒体类型由主类型和子类型组成。</li>
-<li>主类型为application的媒体类型主要用于与软件应用程序相关的数据格式。常用的类型如下：
-<ul>
-<li>application/json JSON格式数据</li>
-<li>application/xml XML格式数据</li>
-<li>application/x-www-form-urlencoded 表单数据编码</li>
-<li>application/octet-stream 二进制流数据</li>
-</ul>
-</li>
-<li>媒体类型定义了html body数据的类型</li>
+<li>http报文由起始行、消息头、空行和消息体四部分组成（请求报文和响应报文相同）。http协议对消息体内容做了哪些约定。</li>
+<li>通讯双方如何识别和处理消息体？通过一些关键的消息头实现。常见的消息头有：</li>
 </ul>
 <markdown-accessiblity-table><table role="table">
 <thead>
 <tr>
-<th>Media Type媒体类型</th>
-<th>描述</th>
-<th>应用场景</th>
+<th>消息头</th>
+<th>含义</th>
+<th>类型</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>application/json</td>
-<td>Cell</td>
-<td>Cell</td>
+<td>Content-Type</td>
+<td>指定消息体的数据类型，告知接收方如何解析消息体。</td>
+<td>请求头/响应头</td>
 </tr>
 <tr>
-<td>application/x-www-form-urlencoded</td>
-<td>Cell</td>
-<td>Cell</td>
+<td>Content-Length</td>
+<td>指定消息体的字节长度，告知接收方读取多少字节的数据。</td>
+<td>请求头/响应头</td>
 </tr>
 <tr>
-<td>multipart/form-data</td>
-<td>Cell</td>
-<td>Cell</td>
+<td>Transfer-Encoding</td>
+<td>指定消息体的传输方式，常用于分块传输编码。</td>
+<td>请求头/响应头</td>
+</tr>
+<tr>
+<td>Content-Encoding</td>
+<td>指定消息体的压缩编码方式，表示消息体经过某种压缩算法。</td>
+<td>请求头/响应头</td>
+</tr>
+<tr>
+<td>Content-Disposition</td>
+<td>指定消息体作为内联内容显示还是作为附件下载。</td>
+<td>响应头</td>
+</tr>
+<tr>
+<td>Accept</td>
+<td>指定客户端能够接收的内容类型，用于内容协商。</td>
+<td>请求头</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<ul>
+<li>其中Content-Type消息头声明了消息体的数据类型，是解析消息体的关键。</li>
+</ul>
+<h1>媒体类型</h1>
+<ul>
+<li>是什么？HTTP 协议中的 Media Type（媒体类型），也称为 MIME Type（多用途互联网邮件扩展类型），是用来表示在 HTTP 请求或响应中传输的数据格式。</li>
+</ul>
+<blockquote>
+<p>全称：Multipurpose Internet Mail Extensions Type。 MIME 最初是为了扩展电子邮件协议（SMTP）而设计的，以允许在电子邮件中传输除纯文本以外的其他类型的数据（如图像、音频、视频和应用程序文件）。</p>
+</blockquote>
+<ul>
+<li>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc7231#autoid-8" rel="nofollow">https://datatracker.ietf.org/doc/html/rfc7231#autoid-8</a></p>
+</li>
+<li>
+<p>媒体类型由主类型和子类型组成。</p>
+</li>
+<li>
+<p>媒体类型的基本格式为：type/subtype</p>
+<ul>
+<li>type：主类型（例如，text、image、audio、video、application等）。主类型为application的媒体类型主要用于与软件应用程序相关的数据格式。</li>
+<li>subtype：子类型，具体描述数据格式。</li>
+</ul>
+</li>
+<li>
+<p>常用的类型如下：</p>
+</li>
+</ul>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>媒体类型</th>
+<th>说明</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>text/plain</strong></td>
+<td>纯文本数据</td>
+<td>传输简单的文本文件，或 API 响应中不含格式的数据</td>
+</tr>
+<tr>
+<td><strong>text/html</strong></td>
+<td>HTML 文档</td>
+<td>传输网页内容，浏览器加载的主要文件类型</td>
+</tr>
+<tr>
+<td><strong>text/css</strong></td>
+<td>CSS 样式表文件</td>
+<td>在网页中用于定义 HTML 元素的样式</td>
+</tr>
+<tr>
+<td><strong>text/javascript</strong></td>
+<td>JavaScript 代码文件</td>
+<td>在网页中用于传输和执行 JavaScript 脚本代码</td>
+</tr>
+<tr>
+<td><strong>application/json</strong></td>
+<td>JSON 格式数据</td>
+<td>API 请求和响应中传输结构化数据，尤其在 REST API 中使用</td>
+</tr>
+<tr>
+<td><strong>application/xml</strong></td>
+<td>XML 格式数据</td>
+<td>传输和存储结构化数据，尤其在一些旧式的 API 和配置文件中使用</td>
+</tr>
+<tr>
+<td><strong>application/octet-stream</strong></td>
+<td>二进制文件流</td>
+<td>下载或上传文件时使用，不限定具体格式</td>
+</tr>
+<tr>
+<td><strong>application/pdf</strong></td>
+<td>PDF 文档</td>
+<td>在线传输或下载 PDF 格式的文档</td>
+</tr>
+<tr>
+<td><strong>application/zip</strong></td>
+<td>ZIP 压缩文件</td>
+<td>传输压缩归档文件，通常用于文件打包</td>
+</tr>
+<tr>
+<td><strong>image/jpeg</strong></td>
+<td>JPEG 图像</td>
+<td>传输照片或图片，广泛用于网页、电子邮件等场景</td>
+</tr>
+<tr>
+<td><strong>image/png</strong></td>
+<td>PNG 图像</td>
+<td>传输无损压缩的图片，常用于网页设计</td>
+</tr>
+<tr>
+<td><strong>image/gif</strong></td>
+<td>GIF 图像</td>
+<td>传输简单的动画或低色彩图像，常用于网页中的图形和表情符号</td>
+</tr>
+<tr>
+<td><strong>audio/mpeg</strong></td>
+<td>MP3 音频文件</td>
+<td>传输音频数据，尤其在音乐和播客流媒体服务中使用</td>
+</tr>
+<tr>
+<td><strong>video/mp4</strong></td>
+<td>MP4 视频文件</td>
+<td>传输视频内容，常用于流媒体平台和视频嵌入网页</td>
+</tr>
+<tr>
+<td><strong>application/x-www-form-urlencoded</strong></td>
+<td>表单编码类型，使用键值对和 URL 编码形式传输数据</td>
+<td>提交 HTML 表单时的默认编码方式，特别是使用 <code class="notranslate">POST</code> 方法时。</td>
+</tr>
+<tr>
+<td><strong>multipart/form-data</strong></td>
+<td>表单数据</td>
+<td>文件上传，或表单数据中含有文件的场景</td>
+</tr>
+<tr>
+<td><strong>application/javascript</strong></td>
+<td>JavaScript 应用程序文件</td>
+<td>传输和执行 JavaScript 应用程序代码</td>
+</tr>
+<tr>
+<td><strong>application/x-www-form-urlencoded</strong></td>
+<td>表单编码数据</td>
+<td>提交网页表单时传输表单数据的默认格式</td>
+</tr>
+<tr>
+<td><strong>application/vnd.ms-excel</strong></td>
+<td>Excel 文件</td>
+<td>传输 Microsoft Excel 表格文档</td>
+</tr>
+<tr>
+<td><strong>application/msword</strong></td>
+<td>Word 文档</td>
+<td>传输 Microsoft Word 文档</td>
 </tr>
 </tbody>
 </table></markdown-accessiblity-table>
 <h2>multipart/form-data 格式</h2>
 <ul>
-<li>作用：</li>
-<li>构成
+<li>
+<p>作用：适合表单数据中含有文件的场景</p>
+</li>
+<li>
+<p>构成</p>
 <ul>
 <li>边界 (boundary)：每个部分（part）之间通过一个边界（boundary）来分隔。边界是一个唯一的字符串，表示各个部分之间的分隔符，由客户端和服务器协商使用，通常由服务器通过 Content-Type 请求头的 boundary 参数来获取。边界的格式为：--boundary_string，每个部分以 --boundary_string 开始，结束时以 --boundary_string-- 表示终止。</li>
 <li>部分：每部分的结构： 每个部分的内容由三部分组成：
@@ -149,7 +293,38 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 </ul>
 </li>
+<li>
+<p>multipart/form-data 报文示例</p>
+</li>
 </ul>
+<pre class="notranslate"><code class="notranslate">POST /upload HTTP/1.1
+Host: www.example.com
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Length: 302
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+John Doe
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="example.txt"
+Content-Type: text/plain
+
+This is the content of the file.
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+</code></pre>
+<ul>
+<li>application/x-www-form-urlencoded 报文示例</li>
+</ul>
+<pre class="notranslate"><code class="notranslate">POST /submit HTTP/1.1
+Host: www.example.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 23
+
+name=John+Doe&amp;age=30
+
+</code></pre>
 <h1>应用示例</h1>
 <ul>
 <li>对应requests包该如何使用</li>
@@ -164,9 +339,6 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>使用post方法，将json对象传递给json参数与data参数的区别？</p>
 <p>使用 json 参数时，requests会将其序列化为 JSON 格式，并设置请求的 Content-Type 为 application/json。</p>
 <p>data参数可以接收字典类型，会将字典转换为表单形式的数据，content-type设置成application/x-www-form-urlencoded。此时设置参数headers={ "Content-Type": "application/json"}，服务器会期望请求主体中的数据是 JSON 格式的字符串，但接收的却是表单形式的数据，会导致异常。</p>
-<ul>
-<li>服务器一个接口会同时支持解析多种内容类型，如django-rest-framework默认支持</li>
-</ul>
 <h1>相关问题</h1>
 <p>为啥在请求体为表单数据时，并且有文件类型上传时，非文件类型的字段使用json参数不行，必须使用data参数？</p>
 <p>requests对请求内容类型的选择：</p>
@@ -198,9 +370,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ul>
-<p>相同内容不同类型的请求体（表单的请求体与json的请求体），web应用都能解析到吗？是怎么兼容的。</p>
-<p>drf可以配置多个解析器parser，支持多种类型请求。</p>
-<p>django默认只支持 form-urlencoded 和 multipart/form-data 的请求解析，支持其他请求需要额外处理。</p>
+<p>服务器一个接口可以支持解析多种内容类型（如表单的请求体与json的请求体）解析吗？是怎么兼容的。<br>
+drf可以配置多个解析器parser，支持多种类型请求。<br>
+django默认只支持 form-urlencoded 和 multipart/form-data 的请求解析，支持其他请求需要额外处理。</p>
 <p>在 HTTP 请求中，所有数据最终都以字节流的形式传输，这是因为 HTTP 协议的底层传输是基于 TCP/IP 的，而 TCP/IP 协议只能处理字节流。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
@@ -226,7 +398,7 @@ if(""!=""){
 </script></div>
 </body>
 <script>
-var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
 var utterancesLoad=0;
 
 let themeSettings={
@@ -299,7 +471,70 @@ function iFrameLoading(){
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
 
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
 
 </script>
 

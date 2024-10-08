@@ -1,26 +1,58 @@
-# Media Type媒体类型是什么
-- http协议比较关键的请求头：Content-Type
+# 前言
+- http报文由起始行、消息头、空行和消息体四部分组成（请求报文和响应报文相同）。http协议对消息体内容做了哪些约定。
+- 通讯双方如何识别和处理消息体？通过一些关键的消息头实现。常见的消息头有：
+
+| 消息头                | 含义                                             | 类型     |
+|---------------------|------------------------------------------------|--------|
+| Content-Type        | 指定消息体的数据类型，告知接收方如何解析消息体。           | 请求头/响应头 |
+| Content-Length      | 指定消息体的字节长度，告知接收方读取多少字节的数据。      | 请求头/响应头 |
+| Transfer-Encoding    | 指定消息体的传输方式，常用于分块传输编码。                | 请求头/响应头 |
+| Content-Encoding    | 指定消息体的压缩编码方式，表示消息体经过某种压缩算法。      | 请求头/响应头 |
+| Content-Disposition  | 指定消息体作为内联内容显示还是作为附件下载。              | 响应头    |
+| Accept              | 指定客户端能够接收的内容类型，用于内容协商。               | 请求头    |
+
+- 其中Content-Type消息头声明了消息体的数据类型，是解析消息体的关键。
+
+# 媒体类型
+- 是什么？HTTP 协议中的 Media Type（媒体类型），也称为 MIME Type（多用途互联网邮件扩展类型），是用来表示在 HTTP 请求或响应中传输的数据格式。
+  
+
+>全称：Multipurpose Internet Mail Extensions Type。 MIME 最初是为了扩展电子邮件协议（SMTP）而设计的，以允许在电子邮件中传输除纯文本以外的其他类型的数据（如图像、音频、视频和应用程序文件）。
+
+ 
 - https://datatracker.ietf.org/doc/html/rfc7231#autoid-8
-
-## Media Type简介
-
 - 媒体类型由主类型和子类型组成。
-- 主类型为application的媒体类型主要用于与软件应用程序相关的数据格式。常用的类型如下：
-  - application/json JSON格式数据
-  - application/xml XML格式数据
-  - application/x-www-form-urlencoded 表单数据编码
-  - application/octet-stream 二进制流数据
-- 媒体类型定义了html body数据的类型
+- 媒体类型的基本格式为：type/subtype
+  - type：主类型（例如，text、image、audio、video、application等）。主类型为application的媒体类型主要用于与软件应用程序相关的数据格式。
+  - subtype：子类型，具体描述数据格式。
 
+- 常用的类型如下：
 
-| Media Type媒体类型| 描述| 应用场景|
-|--------|--------|--------|
-| application/json| Cell | Cell |
-| application/x-www-form-urlencoded | Cell | Cell |
-| multipart/form-data | Cell | Cell | 
+| 媒体类型                      | 说明                          | 使用场景                                      |
+|------------------------------|-----------------------------|---------------------------------------------|
+| **text/plain**                | 纯文本数据                    | 传输简单的文本文件，或 API 响应中不含格式的数据            |
+| **text/html**                 | HTML 文档                     | 传输网页内容，浏览器加载的主要文件类型                    |
+| **text/css**                  | CSS 样式表文件                 | 在网页中用于定义 HTML 元素的样式                       |
+| **text/javascript**           | JavaScript 代码文件             | 在网页中用于传输和执行 JavaScript 脚本代码            |
+| **application/json**          | JSON 格式数据                  | API 请求和响应中传输结构化数据，尤其在 REST API 中使用    |
+| **application/xml**           | XML 格式数据                   | 传输和存储结构化数据，尤其在一些旧式的 API 和配置文件中使用 |
+| **application/octet-stream**  | 二进制文件流                   | 下载或上传文件时使用，不限定具体格式                      |
+| **application/pdf**           | PDF 文档                       | 在线传输或下载 PDF 格式的文档                         |
+| **application/zip**           | ZIP 压缩文件                   | 传输压缩归档文件，通常用于文件打包                        |
+| **image/jpeg**                | JPEG 图像                      | 传输照片或图片，广泛用于网页、电子邮件等场景               |
+| **image/png**                 | PNG 图像                       | 传输无损压缩的图片，常用于网页设计                        |
+| **image/gif**                 | GIF 图像                       | 传输简单的动画或低色彩图像，常用于网页中的图形和表情符号       |
+| **audio/mpeg**                | MP3 音频文件                    | 传输音频数据，尤其在音乐和播客流媒体服务中使用               |
+| **video/mp4**                 | MP4 视频文件                    | 传输视频内容，常用于流媒体平台和视频嵌入网页                |
+| **application/x-www-form-urlencoded** | 表单编码类型，使用键值对和 URL 编码形式传输数据                 | 提交 HTML 表单时的默认编码方式，特别是使用 `POST` 方法时。  |
+| **multipart/form-data**       | 表单数据                       | 文件上传，或表单数据中含有文件的场景                        |
+| **application/javascript**    | JavaScript 应用程序文件           | 传输和执行 JavaScript 应用程序代码                      |
+| **application/x-www-form-urlencoded** | 表单编码数据                | 提交网页表单时传输表单数据的默认格式                     |
+| **application/vnd.ms-excel**  | Excel 文件                    | 传输 Microsoft Excel 表格文档                        |
+| **application/msword**        | Word 文档                      | 传输 Microsoft Word 文档                            |
 
 ## multipart/form-data 格式
-- 作用：
+- 作用：适合表单数据中含有文件的场景
 - 构成
   - 边界 (boundary)：每个部分（part）之间通过一个边界（boundary）来分隔。边界是一个唯一的字符串，表示各个部分之间的分隔符，由客户端和服务器协商使用，通常由服务器通过 Content-Type 请求头的 boundary 参数来获取。边界的格式为：--boundary_string，每个部分以 --boundary_string 开始，结束时以 --boundary_string-- 表示终止。
   - 部分：每部分的结构： 每个部分的内容由三部分组成：
@@ -30,6 +62,37 @@
     - 空行：请求头和内容之间会有一个空行。
     - 内容：该部分的实际数据（比如文件或表单数据）。
 
+- multipart/form-data 报文示例
+
+```
+POST /upload HTTP/1.1
+Host: www.example.com
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Length: 302
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+John Doe
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="example.txt"
+Content-Type: text/plain
+
+This is the content of the file.
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+```
+
+- application/x-www-form-urlencoded 报文示例
+```
+POST /submit HTTP/1.1
+Host: www.example.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 23
+
+name=John+Doe&age=30
+
+```
 # 应用示例
 
 - 对应requests包该如何使用
@@ -44,7 +107,6 @@ requests是如何将一些python对象转化为HTTP请求体的？
 根据请求体content type
 
 
-
 表单编码是一个过程？
 
 如果存在data或者files参数那么json参数会被忽略。
@@ -55,10 +117,6 @@ requests是如何将一些python对象转化为HTTP请求体的？
 
 
 data参数可以接收字典类型，会将字典转换为表单形式的数据，content-type设置成application/x-www-form-urlencoded。此时设置参数headers={ "Content-Type": "application/json"}，服务器会期望请求主体中的数据是 JSON 格式的字符串，但接收的却是表单形式的数据，会导致异常。
-
-
-- 服务器一个接口会同时支持解析多种内容类型，如django-rest-framework默认支持
-
 
 # 相关问题
 
@@ -100,10 +158,8 @@ postman等直观地网络请求工具。
   - Content-Type: text/html （如果是 HTML）
 
 
-相同内容不同类型的请求体（表单的请求体与json的请求体），web应用都能解析到吗？是怎么兼容的。
-
+服务器一个接口可以支持解析多种内容类型（如表单的请求体与json的请求体）解析吗？是怎么兼容的。
 drf可以配置多个解析器parser，支持多种类型请求。
-
 django默认只支持 form-urlencoded 和 multipart/form-data 的请求解析，支持其他请求需要额外处理。
 
 
