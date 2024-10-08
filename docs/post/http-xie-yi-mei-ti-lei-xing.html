@@ -325,20 +325,52 @@ Content-Length: 23
 name=John+Doe&amp;age=30
 
 </code></pre>
-<h1>应用示例</h1>
+<h1>requests包加载消息体原理</h1>
 <ul>
-<li>对应requests包该如何使用</li>
-<li>request对象有了data参数，为什么还要加一个json参数呢？是否代表只能二选一</li>
+<li>常见错误：使用requests发起请求，错误使用消息体参数，导致服务端出现解析报错。
+<ul>
+<li>奇怪现象：设置请求头为application/json一定报错，不设置反而可能没问题（需要服务端同时支持json格式和url编码的表单数据格式的解析）。</li>
 </ul>
-<p>requests是如何将一些python对象转化为HTTP请求体的？</p>
-<p>根据是json参数还是data参数</p>
-<p>根据data参数接受的类型</p>
-<p>根据请求体content type</p>
-<p>表单编码是一个过程？</p>
-<p>如果存在data或者files参数那么json参数会被忽略。</p>
-<p>使用post方法，将json对象传递给json参数与data参数的区别？</p>
-<p>使用 json 参数时，requests会将其序列化为 JSON 格式，并设置请求的 Content-Type 为 application/json。</p>
-<p>data参数可以接收字典类型，会将字典转换为表单形式的数据，content-type设置成application/x-www-form-urlencoded。此时设置参数headers={ "Content-Type": "application/json"}，服务器会期望请求主体中的数据是 JSON 格式的字符串，但接收的却是表单形式的数据，会导致异常。</p>
+</li>
+</ul>
+<pre class="notranslate"><code class="notranslate">import requests
+
+headers = {'Content-Type': 'application/json'}
+data = {'key': 'value'}
+
+response = requests.post('https://api.example.com/endpoint', data=data, headers=headers)
+</code></pre>
+<ul>
+<li>
+<p>使用json参数与data参数的区别？</p>
+</li>
+<li>
+<p>正确理解requests包的请求参数，其中与消息体有关参数如下，对应的数据格式如下：</p>
+<ul>
+<li>data：发送 URL 编码的表单数据（消息体数据格式application/x-www-form-urlencoded）。</li>
+<li>json：发送 JSON 格式的数据（消息体数据格式application/json）。</li>
+<li>files：用于文件上传，生成 multipart/form-data 格式的消息体。</li>
+</ul>
+</li>
+<li>
+<p>原因：当使用data参数时，消息体使用的application/x-www-form-urlencoded格式，但请求头被定义为application/json，服务端自然无法解析。</p>
+</li>
+<li>
+<p>不推荐 requests 包同时传递 data、json 和 files 这三个参数时。因为消息体格式只能对应一种媒体类型，会导致一些意料之外的行为：</p>
+</li>
+<li>
+<p>json 参数会优先于 data 参数。如果两者都提供，只有 json 会被发送。</p>
+</li>
+<li>
+<p>当同时使用 files 和 json 时，json 数据会被忽略，因为 files 参数会强制使用 multipart/form-data 编码。</p>
+</li>
+<li>
+<p>requests是如何将python对象转化为不同媒体类型的HTTP请求？具体逻辑是？</p>
+<ul>
+<li>查看相关源码</li>
+</ul>
+</li>
+</ul>
 <h1>相关问题</h1>
 <p>为啥在请求体为表单数据时，并且有文件类型上传时，非文件类型的字段使用json参数不行，必须使用data参数？</p>
 <p>requests对请求内容类型的选择：</p>
