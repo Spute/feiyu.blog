@@ -93,9 +93,10 @@ Content-Length: 23
 name=John+Doe&age=30
 
 ```
-# requests包加载消息体原理
+# requests包与消息体
 - 常见错误：使用requests发起请求，错误使用消息体参数，导致服务端出现解析报错。
   - 奇怪现象：设置请求头为application/json一定报错，不设置反而可能没问题（需要服务端同时支持json格式和url编码的表单数据格式的解析）。
+  - 原因：当使用data参数时，消息体使用的application/x-www-form-urlencoded格式，但请求头被定义为application/json，服务端自然无法解析。
 ```
 import requests
 
@@ -105,11 +106,12 @@ data = {'key': 'value'}
 response = requests.post('https://api.example.com/endpoint', data=data, headers=headers)
 ```
 - 使用json参数与data参数的区别？
+- 为啥在请求体为表单数据时，并且有文件类型上传时，非文件类型的字段使用json参数不行，必须使用data参数？
 - 正确理解requests包的请求参数，其中与消息体有关参数如下，对应的数据格式如下：
   - data：发送 URL 编码的表单数据（消息体数据格式application/x-www-form-urlencoded）。
   - json：发送 JSON 格式的数据（消息体数据格式application/json）。
   - files：用于文件上传，生成 multipart/form-data 格式的消息体。
-- 原因：当使用data参数时，消息体使用的application/x-www-form-urlencoded格式，但请求头被定义为application/json，服务端自然无法解析。
+
 -  不推荐 requests 包同时传递 data、json 和 files 这三个参数时。因为消息体格式只能对应一种媒体类型，会导致一些意料之外的行为：
   - json 参数会优先于 data 参数。如果两者都提供，只有 json 会被发送。
   - 当同时使用 files 和 json 时，json 数据会被忽略，因为 files 参数会强制使用 multipart/form-data 编码。
@@ -117,33 +119,9 @@ response = requests.post('https://api.example.com/endpoint', data=data, headers=
 - requests是如何将python对象转化为不同媒体类型的HTTP请求？具体逻辑是？
   - 查看相关源码
 
-# 相关问题
+# 网络请求工具与消息体
 
-为啥在请求体为表单数据时，并且有文件类型上传时，非文件类型的字段使用json参数不行，必须使用data参数？
-
-requests对请求内容类型的选择：
-
-表单类型有两种格式，第一种普通表单，第二种支持文件类型上传
-
-"Content-Type": "application/x-www-form-urlencoded"    URL 编码格式
-
-"Content-Type": "multipart/form-data; boundary=1b5d8956f98dcd78d7ed9ef293b07fed" 多部分格式
-
-application/json： json格式
-
-application/octet-stream：用于二进制数据
-
-application/xml：用于 XML 数据格式。
-
-application/pdf：用于 PDF 文件。
-
-
-
-直观理解请求内容的区别？
-
-postman等直观地网络请求工具。
-
-在 Postman 工具中，form、json、file 和 raw 这四种格式对应不同的请求体格式和请求头。
+- 直观理解请求内容的区别？使用postman等直观地网络请求工具。在 Postman 工具中，form、json、file 和 raw 这四种格式对应不同的请求体格式和请求头。
 
 - form：
   - Content-Type: multipart/form-data
@@ -156,11 +134,8 @@ postman等直观地网络请求工具。
   - Content-Type: text/xml （如果是 XML）
   - Content-Type: text/html （如果是 HTML）
 
-
-服务器一个接口可以支持解析多种内容类型（如表单的请求体与json的请求体）解析吗？是怎么兼容的。
-drf可以配置多个解析器parser，支持多种类型请求。
-django默认只支持 form-urlencoded 和 multipart/form-data 的请求解析，支持其他请求需要额外处理。
-
-
-在 HTTP 请求中，所有数据最终都以字节流的形式传输，这是因为 HTTP 协议的底层传输是基于 TCP/IP 的，而 TCP/IP 协议只能处理字节流。
+# 服务端与请求体
+- 服务器一个接口可以支持解析多种内容类型（如表单的请求体与json的请求体）解析吗？是怎么兼容的。
+  - drf可以配置多个解析器parser，支持多种类型请求。
+  - django默认只支持 form-urlencoded 和 multipart/form-data 的请求解析，支持其他请求需要额外处理。
 
