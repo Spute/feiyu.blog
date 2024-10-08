@@ -14,7 +14,7 @@
 - http协议比较关键的请求头：Content-Type
 - https://datatracker.ietf.org/doc/html/rfc7231#autoid-8
 
-# 相关
+## Media Type简介
 
 - 媒体类型由主类型和子类型组成。">
 <meta property="og:title" content="requests包的content-type">
@@ -22,7 +22,7 @@
 - http协议比较关键的请求头：Content-Type
 - https://datatracker.ietf.org/doc/html/rfc7231#autoid-8
 
-# 相关
+## Media Type简介
 
 - 媒体类型由主类型和子类型组成。">
 <meta property="og:type" content="article">
@@ -90,7 +90,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>http协议比较关键的请求头：Content-Type</li>
 <li><a href="https://datatracker.ietf.org/doc/html/rfc7231#autoid-8" rel="nofollow">https://datatracker.ietf.org/doc/html/rfc7231#autoid-8</a></li>
 </ul>
-<h1>相关</h1>
+<h2>Media Type简介</h2>
 <ul>
 <li>媒体类型由主类型和子类型组成。</li>
 <li>主类型为application的媒体类型主要用于与软件应用程序相关的数据格式。常用的类型如下：
@@ -108,7 +108,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <tr>
 <th>Media Type媒体类型</th>
 <th>描述</th>
-<th>Header</th>
+<th>应用场景</th>
 </tr>
 </thead>
 <tbody>
@@ -129,6 +129,27 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </tr>
 </tbody>
 </table></markdown-accessiblity-table>
+<h2>multipart/form-data 格式</h2>
+<ul>
+<li>作用：</li>
+<li>构成
+<ul>
+<li>边界 (boundary)：每个部分（part）之间通过一个边界（boundary）来分隔。边界是一个唯一的字符串，表示各个部分之间的分隔符，由客户端和服务器协商使用，通常由服务器通过 Content-Type 请求头的 boundary 参数来获取。边界的格式为：--boundary_string，每个部分以 --boundary_string 开始，结束时以 --boundary_string-- 表示终止。</li>
+<li>部分：每部分的结构： 每个部分的内容由三部分组成：
+<ul>
+<li>请求头：每个部分会有自己独立的请求头，用来描述该部分的数据类型和数据名称。常见的头部包括 Content-Disposition 和 Content-Type。
+<ul>
+<li>Content-Disposition：每个部分的 Content-Disposition 指定了数据的名称和文件名（如果是文件）。form-data 表示表单数据。name 表示该部分的键名。filename（可选）表示上传文件的名称。</li>
+<li>Content-Type（可选）：如果是上传文件，可以使用 Content-Type 指定文件的 MIME 类型（如 image/png、application/pdf 等）。对于非文件数据，此头部可以省略。</li>
+</ul>
+</li>
+<li>空行：请求头和内容之间会有一个空行。</li>
+<li>内容：该部分的实际数据（比如文件或表单数据）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h1>应用示例</h1>
 <ul>
 <li>对应requests包该如何使用</li>
