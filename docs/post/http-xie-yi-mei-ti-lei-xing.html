@@ -408,7 +408,30 @@ response = requests.post('https://api.example.com/endpoint', data=data, headers=
 <li>django默认只支持 form-urlencoded 和 multipart/form-data 的请求解析，支持其他请求需要额外处理。</li>
 </ul>
 </li>
-</ul></div>
+</ul>
+<h1>浏览器与请求体</h1>
+<ol>
+<li>application/x-www-form-urlencoded 报文</li>
+</ol>
+<p>这是 HTML 表单的默认编码类型，表单字段以 URL 编码的方式发送。</p>
+<p>表单示例：</p>
+<pre class="notranslate"><code class="notranslate">&lt;form method="POST" action="/submit" enctype="application/x-www-form-urlencoded"&gt;
+  &lt;input type="text" name="name" value="John Doe"&gt;
+  &lt;input type="text" name="age" value="30"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<ol start="2">
+<li>multipart/form-data 报文<br>
+multipart/form-data 通常用于提交包含文件的表单，数据以分块的形式发送，每个字段作为一个独立的部分。<br>
+表单示例（含文件上传）：</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">&lt;form method="POST" action="/upload" enctype="multipart/form-data"&gt;
+  &lt;input type="text" name="name" value="John Doe"&gt;
+  &lt;input type="file" name="file"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+</code></pre></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

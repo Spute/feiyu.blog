@@ -139,3 +139,28 @@ response = requests.post('https://api.example.com/endpoint', data=data, headers=
   - drf可以配置多个解析器parser，支持多种类型请求。
   - django默认只支持 form-urlencoded 和 multipart/form-data 的请求解析，支持其他请求需要额外处理。
 
+# 浏览器与请求体
+
+1. application/x-www-form-urlencoded 报文
+
+这是 HTML 表单的默认编码类型，表单字段以 URL 编码的方式发送。
+
+表单示例：
+```
+<form method="POST" action="/submit" enctype="application/x-www-form-urlencoded">
+  <input type="text" name="name" value="John Doe">
+  <input type="text" name="age" value="30">
+  <button type="submit">Submit</button>
+</form>
+```
+
+2. multipart/form-data 报文
+multipart/form-data 通常用于提交包含文件的表单，数据以分块的形式发送，每个字段作为一个独立的部分。
+表单示例（含文件上传）：
+```
+<form method="POST" action="/upload" enctype="multipart/form-data">
+  <input type="text" name="name" value="John Doe">
+  <input type="file" name="file">
+  <button type="submit">Submit</button>
+</form>
+```
