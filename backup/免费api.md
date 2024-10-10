@@ -1,0 +1,6 @@
+- 最近在折腾英语打字练习项目qwerty-learner，发现这个项目用到了一个有道开放的语音朗读api，居然不用鉴权。免费的羊毛呀这么神奇。
+- 文本转语音：`https://dict.youdao.com/dictvoice?audio=optional&type=2`
+- 中文转英文：`https://dict.youdao.com/suggest?num=5&ver=3.0&doctype=json&cache=false&le=en&q=%E7%94%9F%E6%97%A5`
+- 发现这个项目的很多单词翻译的不全。想优化一下。然后去查有没有哪些其他的免费的开放接口。发现好像有道的被刻意隐藏了。没有相关文档。
+- 然后在v2ex中搜索、github中搜free api。找到了一些，试了下，有些过时了，有些比较麻烦。
+- 有趣的是方向有道字典逆向的脚本。。。。一段python代码就能实现。
