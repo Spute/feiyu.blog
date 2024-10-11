@@ -1,5 +1,38 @@
 # 原因
 - json不支持正负无穷的表述，python应用程序中，需要使用到正负无穷数据。python如何对包含正负无穷的json进行序列化与反序列化。
+- json格式定义是
+你可以通过以下链接查看 RFC 8259 的正式文档：
+
+[RFC 8259 - The JavaScript Object Notation (JSON) Data Interchange Format](https://datatracker.ietf.org/doc/html/rfc8259)
+
+这是由 IETF 发布的完整文档，详细描述了 JSON 数据交换格式的规范。
+
+# 情况
+- python对正负无穷数据json序列化后是什么？
+
+```
+import json
+json.dumps({1:float('inf'),2:float('-inf')})
+'{"1": Infinity, "2": -Infinity}'
+```
+
+使用JavaScript反序列化报错
+```
+const jsonString = '{"1": Infinity, "2": -Infinity}';
+const obj = JSON.parse(jsonString);
+console.log(obj.value);
+VM187:1 Uncaught SyntaxError: Unexpected token 'I', "{"1": Infinity, "... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at <anonymous>:2:18
+```
+
+使用python反序列化成功
+```
+r = json.loads('{"1": Infinity, "2": -Infinity}')
+print(type(r["1"]))
+<class 'float'>
+
+```
 
 # 方案
 包含Infinity的字符串序列化
