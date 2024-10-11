@@ -31,6 +31,24 @@ print(type(r["1"]))
 
 ```
 
+# 自定义
+
+```
+import json
+json_str = '{"1": Infinity, "2": -Infinity}'
+# 自定义解析方式
+def parse_constant(s):
+    if s == 'Infinity':
+        return "正无穷"
+    elif s == '-Infinity':
+        return "负无穷"
+    else:
+        return s
+print(json.loads(json_str, parse_constant=parse_constant))
+{'1': '正无穷', '2': '负无穷'}
+
+```
+
 # 方案
 python的json模块的load和loads的区别是什么？前者接收字节流对象，后者接收的是字符串
 

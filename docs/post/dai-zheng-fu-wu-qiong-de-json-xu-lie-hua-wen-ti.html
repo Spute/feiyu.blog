@@ -113,6 +113,21 @@ print(type(r["1"]))
 &lt;class 'float'&gt;
 
 </code></pre>
+<h1>自定义</h1>
+<pre class="notranslate"><code class="notranslate">import json
+json_str = '{"1": Infinity, "2": -Infinity}'
+# 自定义解析方式
+def parse_constant(s):
+    if s == 'Infinity':
+        return "正无穷"
+    elif s == '-Infinity':
+        return "负无穷"
+    else:
+        return s
+print(json.loads(json_str, parse_constant=parse_constant))
+{'1': '正无穷', '2': '负无穷'}
+
+</code></pre>
 <h1>方案</h1>
 <p>python的json模块的load和loads的区别是什么？前者接收字节流对象，后者接收的是字符串</p>
 <p>parse_constant的参数指定了3个特殊的字符常量'-Infinity' 、 'Infinity' 、 'NaN'，为拓展属性。json的定义并不支持'-Infinity' 、 'Infinity' 、 'NaN'。</p>
