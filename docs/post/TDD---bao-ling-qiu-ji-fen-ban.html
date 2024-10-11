@@ -10,13 +10,27 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="hello my blog。">
-<meta property="og:title" content="测试">
-<meta property="og:description" content="hello my blog。">
+<meta name="description" content="保龄球计分板
+- 游戏规则
+  - 一场游戏共10轮，每轮共有10个球瓶提供击倒（最后一轮例外）
+  - 每轮的第一次投掷击倒所有球瓶时，本轮称为全中
+  - 每轮前两次投掷击倒的球瓶时，本轮称为补中
+  - 每轮结束规则：
+    - 每轮可以投掷2次，当本轮球瓶被全部击倒后提前结束本轮
+    - 最后一轮是特例，当第一次投掷全中时，可以再投掷两次；当前两次补中时，可以再投掷一次。">
+<meta property="og:title" content="TDD--保龄球计分板">
+<meta property="og:description" content="保龄球计分板
+- 游戏规则
+  - 一场游戏共10轮，每轮共有10个球瓶提供击倒（最后一轮例外）
+  - 每轮的第一次投掷击倒所有球瓶时，本轮称为全中
+  - 每轮前两次投掷击倒的球瓶时，本轮称为补中
+  - 每轮结束规则：
+    - 每轮可以投掷2次，当本轮球瓶被全部击倒后提前结束本轮
+    - 最后一轮是特例，当第一次投掷全中时，可以再投掷两次；当前两次补中时，可以再投掷一次。">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://Spute.github.io/feiyu.blog/post/ce-shi.html">
+<meta property="og:url" content="https://Spute.github.io/feiyu.blog/post/TDD---bao-ling-qiu-ji-fen-ban.html">
 <meta property="og:image" content="https://github.com/Spute/feiyu.blog/blob/main/icons8-fish-100.png?raw=true">
-<title>测试</title>
+<title>TDD--保龄球计分板</title>
 
 
 
@@ -49,7 +63,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 <body>
     <div id="header">
-<h1 class="postTitle">测试</h1>
+<h1 class="postTitle">TDD--保龄球计分板</h1>
 <div class="title-right">
     <a href="https://Spute.github.io/feiyu.blog" id="buttonHome" class="btn btn-invisible circle" title="首页">
         <svg class="octicon" width="16" height="16">
@@ -57,7 +71,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         </svg>
     </a>
     
-    <a href="https://github.com/Spute/feiyu.blog/issues/1" target="_blank" class="btn btn-invisible circle" title="Issue">
+    <a href="https://github.com/Spute/feiyu.blog/issues/14" target="_blank" class="btn btn-invisible circle" title="Issue">
         <svg class="octicon" width="16" height="16">
             <path id="pathIssue" fill-rule="evenodd"></path>
         </svg>
@@ -73,7 +87,43 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><p>hello my blog</p></div>
+<div class="markdown-body" id="postBody"><p>保龄球计分板</p>
+<ul>
+<li>游戏规则
+<ul>
+<li>一场游戏共10轮，每轮共有10个球瓶提供击倒（最后一轮例外）</li>
+<li>每轮的第一次投掷击倒所有球瓶时，本轮称为全中</li>
+<li>每轮前两次投掷击倒的球瓶时，本轮称为补中</li>
+<li>每轮结束规则：
+<ul>
+<li>每轮可以投掷2次，当本轮球瓶被全部击倒后提前结束本轮</li>
+<li>最后一轮是特例，当第一次投掷全中时，可以再投掷两次；当前两次补中时，可以再投掷一次。</li>
+</ul>
+</li>
+<li>计分规则：
+<ul>
+<li>总得分为10轮得分总和</li>
+<li>全中轮得分 =  前一轮得分 + 10 + 后两次投掷击倒球瓶数</li>
+<li>补中轮得分 = 前一轮得分 + 10 + 后一次投掷击倒球瓶数</li>
+<li>最后一轮得分:
+<ul>
+<li>如果第一次投掷全中，= 前一轮得分 + 10 + 后两次投掷击倒球瓶数</li>
+<li>如果前两次投掷补中，= 前一轮得分 + 10 + 后一次投掷击倒球瓶数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>测试用例（力求覆盖所有情况）
+<ul>
+<li>正向用例</li>
+<li>反向用例</li>
+<li>典型的记分卡</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/dd16ca6d-1634-4fb3-9e6c-f68f8de3822f"><img src="https://github.com/user-attachments/assets/dd16ca6d-1634-4fb3-9e6c-f68f8de3822f" alt="image" style="max-width: 100%;"></a></p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
