@@ -1,11 +1,8 @@
 # 原因
 - json不支持正负无穷的表述，python应用程序中，需要使用到正负无穷数据。python如何对包含正负无穷的json进行序列化与反序列化。
-- json格式定义是
-你可以通过以下链接查看 RFC 8259 的正式文档：
+- RFC 8259 的正式文档规定，json的值只允许6种类型：对象（object）、数组（array）、字符串（string）、数字（number）、布尔值（boolean）和 null 值
 
 [RFC 8259 - The JavaScript Object Notation (JSON) Data Interchange Format](https://datatracker.ietf.org/doc/html/rfc8259)
-
-这是由 IETF 发布的完整文档，详细描述了 JSON 数据交换格式的规范。
 
 # 情况
 - python对正负无穷数据json序列化后是什么？
@@ -35,8 +32,6 @@ print(type(r["1"]))
 ```
 
 # 方案
-包含Infinity的字符串序列化
-
 python的json模块的load和loads的区别是什么？前者接收字节流对象，后者接收的是字符串
 
 parse_constant的参数指定了3个特殊的字符常量'-Infinity' 、 'Infinity' 、 'NaN'，为拓展属性。json的定义并不支持'-Infinity' 、 'Infinity' 、 'NaN'。
