@@ -1,0 +1,11 @@
+# 原因
+- json不支持正负无穷的表述，python应用程序中，需要使用到正负无穷数据。python如何对包含正负无穷的json进行序列化与反序列化。
+
+# 方案
+包含Infinity的字符串序列化
+
+python的json模块的load和loads的区别是什么？前者接收字节流对象，后者接收的是字符串
+
+parse_constant的参数指定了3个特殊的字符常量'-Infinity' 、 'Infinity' 、 'NaN'，为拓展属性。json的定义并不支持'-Infinity' 、 'Infinity' 、 'NaN'。
+
+python中float('inf')可以表示正无穷，如果只用print出来是‘inf’, 序列化出来是“Infinity”
