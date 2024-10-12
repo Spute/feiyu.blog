@@ -113,7 +113,40 @@ print(type(r["1"]))
 &lt;class 'float'&gt;
 
 </code></pre>
-<h1>自定义</h1>
+<h1>自定义序列化方式</h1>
+<p>加入allow_nan=False限制特殊数据的序列化，防止其他应用程序反序列化时异常</p>
+<pre class="notranslate"><code class="notranslate">import json
+obj = {1:float('inf'),2:float('-inf')}
+print(json.dumps(obj, allow_nan=False))
+Traceback (most recent call last):
+  File "&lt;input&gt;", line 3, in &lt;module&gt;
+  File "/usr/lib/python2.7/json/__init__.py", line 251, in dumps
+    sort_keys=sort_keys, **kw).encode(obj)
+  File "/usr/lib/python2.7/json/encoder.py", line 207, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/usr/lib/python2.7/json/encoder.py", line 270, in iterencode
+    return _iterencode(o, 0)
+ValueError: Out of range float values are not JSON compliant
+
+</code></pre>
+<p>序列化前替换特殊数据</p>
+<pre class="notranslate"><code class="notranslate"># 替换前
+import json
+obj = {1:float('inf'),2:float('-inf')}
+print(json.dumps(obj))
+{"1": Infinity, "2": -Infinity}
+
+# 替换后
+import json
+obj = {1:float('inf'),2:float('-inf')}
+obj[0]="Infinity"
+obj[1]="-Infinity"
+print(json.dumps(obj))
+{"0": "Infinity", "1": "-Infinity", "2": -Infinity}
+
+</code></pre>
+<h1>自定义反序列方式</h1>
+<p>parse_constant的参数指定了3个特殊的字符常量'-Infinity' 、 'Infinity' 、 'NaN'，为拓展属性。json的定义并不支持'-Infinity' 、 'Infinity' 、 'NaN'。</p>
 <pre class="notranslate"><code class="notranslate">import json
 json_str = '{"1": Infinity, "2": -Infinity}'
 # 自定义解析方式
@@ -130,7 +163,6 @@ print(json.loads(json_str, parse_constant=parse_constant))
 </code></pre>
 <h1>方案</h1>
 <p>python的json模块的load和loads的区别是什么？前者接收字节流对象，后者接收的是字符串</p>
-<p>parse_constant的参数指定了3个特殊的字符常量'-Infinity' 、 'Infinity' 、 'NaN'，为拓展属性。json的定义并不支持'-Infinity' 、 'Infinity' 、 'NaN'。</p>
 <p>python中float('inf')可以表示正无穷，如果只用print出来是‘inf’, 序列化出来是“Infinity”</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
