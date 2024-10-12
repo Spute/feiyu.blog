@@ -94,6 +94,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h1>情况</h1>
 <ul>
 <li>python对正负无穷数据json序列化后是什么？</li>
+<li><a href="https://docs.python.org/3/library/json.html#infinite-and-nan-number-values" rel="nofollow">https://docs.python.org/3/library/json.html#infinite-and-nan-number-values</a></li>
 </ul>
 <pre class="notranslate"><code class="notranslate">import json
 json.dumps({1:float('inf'),2:float('-inf')})
@@ -146,7 +147,7 @@ print(json.dumps(obj))
 
 </code></pre>
 <h1>自定义反序列方式</h1>
-<p>parse_constant的参数指定了3个特殊的字符常量'-Infinity' 、 'Infinity' 、 'NaN'，为拓展属性。json的定义并不支持'-Infinity' 、 'Infinity' 、 'NaN'。</p>
+<p>parse_constant的参数指定了3个特殊的字符常量'-Infinity' 、 'Infinity' 、 'NaN'，为拓展属性。</p>
 <pre class="notranslate"><code class="notranslate">import json
 json_str = '{"1": Infinity, "2": -Infinity}'
 # 自定义解析方式
@@ -161,9 +162,8 @@ print(json.loads(json_str, parse_constant=parse_constant))
 {'1': '正无穷', '2': '负无穷'}
 
 </code></pre>
-<h1>方案</h1>
-<p>python的json模块的load和loads的区别是什么？前者接收字节流对象，后者接收的是字符串</p>
-<p>python中float('inf')可以表示正无穷，如果只用print出来是‘inf’, 序列化出来是“Infinity”</p></div>
+<h1>其他</h1>
+<p>python的json模块的load和loads的区别是什么？前者接收字节流对象，后者接收的是字符串</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

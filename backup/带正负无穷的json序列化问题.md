@@ -6,6 +6,7 @@
 
 # 情况
 - python对正负无穷数据json序列化后是什么？
+- https://docs.python.org/3/library/json.html#infinite-and-nan-number-values
 
 ```
 import json
@@ -71,7 +72,7 @@ print(json.dumps(obj))
 
 # 自定义反序列方式
 
-parse_constant的参数指定了3个特殊的字符常量'-Infinity' 、 'Infinity' 、 'NaN'，为拓展属性。json的定义并不支持'-Infinity' 、 'Infinity' 、 'NaN'。
+parse_constant的参数指定了3个特殊的字符常量'-Infinity' 、 'Infinity' 、 'NaN'，为拓展属性。
 ```
 import json
 json_str = '{"1": Infinity, "2": -Infinity}'
@@ -88,9 +89,5 @@ print(json.loads(json_str, parse_constant=parse_constant))
 
 ```
 
-# 方案
+# 其他
 python的json模块的load和loads的区别是什么？前者接收字节流对象，后者接收的是字符串
-
-
-
-python中float('inf')可以表示正无穷，如果只用print出来是‘inf’, 序列化出来是“Infinity”
