@@ -145,26 +145,35 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>base64编码方式的目的是什么？<br>
 Base64的主要目的是为了让二进制数据可以用可打印字符表示,便于传输,而不是为了压缩数据。如果需要减小数据大小,应该使用专门的压缩算法(如gzip、zip等)。</p>
 <h2>Base64编码和解码的过程:</h2>
-<p>Base64编码过程:</p>
+<ul>
+<li>Base64编码过程:</li>
+</ul>
 <p>任何数据(文本、图片、二进制等)→二进制数据→Base64字符串(ASCII字符)</p>
-<p>Base64解码过程:</p>
-<p>Base64字符串→二进制数据<br>
-这个二进制数据可以按需要解释成:</p>
+<ul>
+<li>Base64解码过程:</li>
+</ul>
+<p>Base64字符串→二进制数据</p>
+<ul>
+<li>这个二进制数据可以按需要解释成:</li>
+</ul>
 <p>UTF-8/其他编码的文本<br>
 图片<br>
 其他二进制格式</p>
-<p>场景：<br>
-HTTP 基本认证（HTTP Basic Authentication）。这种认证方式在HTTP请求的头部中传递用户的凭证（用户名和密码），并通过Base64 编码对凭证进行编码。</p>
-<p>为啥使用curl获得的html响应与使用requests请求获得的text表示形式不一样？</p>
+<ul>
+<li>场景：<br>
+HTTP 基本认证（HTTP Basic Authentication）。这种认证方式在HTTP请求的头部中传递用户的凭证（用户名和密码），并通过Base64 编码对凭证进行编码。</li>
+</ul>
+<h1>奇怪现象</h1>
+<p>回车符：\r 会将光标移动到当前行的开头，而不会换到下一行。这意味着在输出内容时，任何在 \r 之后的字符会覆盖行首的内容。</p>
+<pre class="notranslate"><code class="notranslate">print('sssss\rsss')
+sss
+</code></pre>
+<h1>为啥使用curl获得的html响应与使用requests请求获得的text表示形式不一样？</h1>
 <p>\为双反斜杠，该如何理解<br>
 如何记忆反斜杠和斜杠<br>
 字符串开头增加r的作用是什么？</p>
 <p>python的字符串与JavaScript字符串的区别？如何实现相互转换？<br>
 使用json</p>
-<p>回车符：\r 会将光标移动到当前行的开头，而不会换到下一行。这意味着在输出内容时，任何在 \r 之后的字符会覆盖行首的内容。</p>
-<pre class="notranslate"><code class="notranslate">print('sssss\rsss')
-sss
-</code></pre>
 <p>你提到的这个例子很有趣，它展示了 Python 中字符串字面值的不同表示方式。让我解释一下这两种表示：</p>
 <ol>
 <li>
