@@ -10,7 +10,9 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="为啥会有以下情况？print与直接字符不一样吗？
+<meta name="description" content="# 问题
+
+为啥会有以下情况？print与直接字符不一样吗？
 ```
 print('\u002b')
 +
@@ -28,9 +30,12 @@ print函数可以反转回去，或者写到一个文件中，也可以，难度
 这是什么问题：
 <input>:1: DeprecationWarning: invalid escape sequence '\/'
 
+# base64编码
 Base64 是一种常见的编码方式，用于将二进制数据（如图像、音频文件或加密数据）转换为 ASCII 字符串。">
 <meta property="og:title" content="python的字符相关问题。">
-<meta property="og:description" content="为啥会有以下情况？print与直接字符不一样吗？
+<meta property="og:description" content="# 问题
+
+为啥会有以下情况？print与直接字符不一样吗？
 ```
 print('\u002b')
 +
@@ -48,6 +53,7 @@ print函数可以反转回去，或者写到一个文件中，也可以，难度
 这是什么问题：
 <input>:1: DeprecationWarning: invalid escape sequence '\/'
 
+# base64编码
 Base64 是一种常见的编码方式，用于将二进制数据（如图像、音频文件或加密数据）转换为 ASCII 字符串。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://Spute.github.io/feiyu.blog/post/python-de-zi-fu-xiang-guan-wen-ti-%E3%80%82.html">
@@ -119,7 +125,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><p>为啥会有以下情况？print与直接字符不一样吗？</p>
+<div class="markdown-body" id="postBody"><h1>问题</h1>
+<p>为啥会有以下情况？print与直接字符不一样吗？</p>
 <pre class="notranslate"><code class="notranslate">print("\u002b")
 +
 "\u002b"
@@ -133,7 +140,21 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>print函数可以反转回去，或者写到一个文件中，也可以，难度没有其他方法?</p>
 <p>这是什么问题：<br>
 :1: DeprecationWarning: invalid escape sequence '/'</p>
+<h1>base64编码</h1>
 <p>Base64 是一种常见的编码方式，用于将二进制数据（如图像、音频文件或加密数据）转换为 ASCII 字符串。如果想将字符串base64，需要先转换成二进制，然后再转到ASCII字符串。</p>
+<p>base64编码方式的目的是什么？<br>
+Base64的主要目的是为了让二进制数据可以用可打印字符表示,便于传输,而不是为了压缩数据。如果需要减小数据大小,应该使用专门的压缩算法(如gzip、zip等)。</p>
+<h2>Base64编码和解码的过程:</h2>
+<p>Base64编码过程:</p>
+<p>任何数据(文本、图片、二进制等)→二进制数据→Base64字符串(ASCII字符)</p>
+<p>Base64解码过程:</p>
+<p>Base64字符串→二进制数据<br>
+这个二进制数据可以按需要解释成:</p>
+<p>UTF-8/其他编码的文本<br>
+图片<br>
+其他二进制格式</p>
+<p>场景：<br>
+HTTP 基本认证（HTTP Basic Authentication）。这种认证方式在HTTP请求的头部中传递用户的凭证（用户名和密码），并通过Base64 编码对凭证进行编码。</p>
 <p>为啥使用curl获得的html响应与使用requests请求获得的text表示形式不一样？</p>
 <p>\为双反斜杠，该如何理解<br>
 如何记忆反斜杠和斜杠<br>

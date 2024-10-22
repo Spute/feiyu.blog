@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>非鱼的Blog</title><link>https://Spute.github.io/feiyu.blog</link><description>不用完美</description><copyright>非鱼的Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.com/Spute/feiyu.blog/blob/main/icons8-fish-100.png?raw=true</url><title>avatar</title><link>https://Spute.github.io/feiyu.blog</link></image><lastBuildDate>Tue, 22 Oct 2024 03:54:01 +0000</lastBuildDate><managingEditor>非鱼的Blog</managingEditor><ttl>60</ttl><webMaster>非鱼的Blog</webMaster><item><title>对一次爬虫实战的总结</title><link>https://Spute.github.io/feiyu.blog/post/dui-yi-ci-pa-chong-shi-zhan-de-zong-jie.html</link><description># 前言&#13;
-最近尝试做了一个小说爬虫程序，目标网站是一个无需登录就能获取内容的网站。</description><guid isPermaLink="true">https://Spute.github.io/feiyu.blog/post/dui-yi-ci-pa-chong-shi-zhan-de-zong-jie.html</guid><pubDate>Tue, 15 Oct 2024 10:50:50 +0000</pubDate></item><item><title>python的字符相关问题。</title><link>https://Spute.github.io/feiyu.blog/post/python-de-zi-fu-xiang-guan-wen-ti-%E3%80%82.html</link><description>为啥会有以下情况？print与直接字符不一样吗？&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>非鱼的Blog</title><link>https://Spute.github.io/feiyu.blog</link><description>不用完美</description><copyright>非鱼的Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.com/Spute/feiyu.blog/blob/main/icons8-fish-100.png?raw=true</url><title>avatar</title><link>https://Spute.github.io/feiyu.blog</link></image><lastBuildDate>Tue, 22 Oct 2024 04:09:09 +0000</lastBuildDate><managingEditor>非鱼的Blog</managingEditor><ttl>60</ttl><webMaster>非鱼的Blog</webMaster><item><title>对一次爬虫实战的总结</title><link>https://Spute.github.io/feiyu.blog/post/dui-yi-ci-pa-chong-shi-zhan-de-zong-jie.html</link><description># 前言&#13;
+最近尝试做了一个小说爬虫程序，目标网站是一个无需登录就能获取内容的网站。</description><guid isPermaLink="true">https://Spute.github.io/feiyu.blog/post/dui-yi-ci-pa-chong-shi-zhan-de-zong-jie.html</guid><pubDate>Tue, 15 Oct 2024 10:50:50 +0000</pubDate></item><item><title>python的字符相关问题。</title><link>https://Spute.github.io/feiyu.blog/post/python-de-zi-fu-xiang-guan-wen-ti-%E3%80%82.html</link><description># 问题&#13;
+&#13;
+为啥会有以下情况？print与直接字符不一样吗？&#13;
 ```&#13;
 print('\u002b')&#13;
 +&#13;
@@ -18,6 +20,7 @@ print函数可以反转回去，或者写到一个文件中，也可以，难度
 这是什么问题：&#13;
 &lt;input&gt;:1: DeprecationWarning: invalid escape sequence '\/'&#13;
 &#13;
+# base64编码&#13;
 Base64 是一种常见的编码方式，用于将二进制数据（如图像、音频文件或加密数据）转换为 ASCII 字符串。</description><guid isPermaLink="true">https://Spute.github.io/feiyu.blog/post/python-de-zi-fu-xiang-guan-wen-ti-%E3%80%82.html</guid><pubDate>Mon, 14 Oct 2024 09:41:54 +0000</pubDate></item><item><title>系统分层设计</title><link>https://Spute.github.io/feiyu.blog/post/xi-tong-fen-ceng-she-ji.html</link><description>系统分层是一种设计。</description><guid isPermaLink="true">https://Spute.github.io/feiyu.blog/post/xi-tong-fen-ceng-she-ji.html</guid><pubDate>Sat, 12 Oct 2024 04:02:23 +0000</pubDate></item><item><title>TDD--保龄球计分板</title><link>https://Spute.github.io/feiyu.blog/post/TDD---bao-ling-qiu-ji-fen-ban.html</link><description>保龄球计分板&#13;
 - 游戏规则&#13;
   - 一场游戏共10轮，每轮共有10个球瓶提供击倒（最后一轮例外）&#13;
