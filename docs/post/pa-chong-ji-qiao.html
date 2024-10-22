@@ -10,27 +10,11 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="# 步骤
-- 判断是否包含动态内容
-- 找到动态内容在哪个标签
-- 全局搜索这个标签内容的id、class，找到动态加载的js代码
-- 对这个js代码进行逆向
-
-# html内容解析
-- 正则
-- 标准库方法`from html.parser import HTMLParser`
-- lxml第三方包。">
+<meta name="description" content="# 前言
+最近尝试做了一个小说爬虫程序，目标网站是一个无需登录就能获取内容的网站。">
 <meta property="og:title" content="爬虫技巧">
-<meta property="og:description" content="# 步骤
-- 判断是否包含动态内容
-- 找到动态内容在哪个标签
-- 全局搜索这个标签内容的id、class，找到动态加载的js代码
-- 对这个js代码进行逆向
-
-# html内容解析
-- 正则
-- 标准库方法`from html.parser import HTMLParser`
-- lxml第三方包。">
+<meta property="og:description" content="# 前言
+最近尝试做了一个小说爬虫程序，目标网站是一个无需登录就能获取内容的网站。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://Spute.github.io/feiyu.blog/post/pa-chong-ji-qiao.html">
 <meta property="og:image" content="https://github.com/Spute/feiyu.blog/blob/main/icons8-fish-100.png?raw=true">
@@ -91,7 +75,10 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h1>步骤</h1>
+<div class="markdown-body" id="postBody"><h1>前言</h1>
+<p>最近尝试做了一个小说爬虫程序，目标网站是一个无需登录就能获取内容的网站。需要的是逆向JS去解析其中动态生成的内容。<br>
+这部分内容使用aes对称加密算法。因为对js代码不熟悉，就结合AI一起实现这个逆向，在实现的过程中，踩了不少坑。这里总结收获。</p>
+<h1>步骤</h1>
 <ul>
 <li>判断是否包含动态内容</li>
 <li>找到动态内容在哪个标签</li>
