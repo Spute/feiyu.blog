@@ -78,6 +78,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <h1>基础配置</h1>
 <ul>
+<li>允许termux访问手机的文件，这个命令会新增一些共享目录。<code class="notranslate">termux-setup-storage</code></li>
 <li>更新apt安装源为国内镜像源<code class="notranslate">sed -i 's@termux.org/packages/@mirrors.ustc.edu.cn/termux/apt/termux-main@'   $PREFIX/etc/apt/sources.list</code></li>
 <li>更新apt <code class="notranslate">apt update &amp;&amp; apt upgrade</code></li>
 <li>安装python</li>
