@@ -30,3 +30,12 @@
    - 在目标服务器（例如Termux中的SSH服务器）上，打开或创建`~/.ssh/authorized_keys`文件，并将公钥粘贴到文件中。
 
 这样设置后，你就可以使用私钥通过SSH连接到已配置公钥的服务器，而无需输入密码。
+
+
+# 运行docker
+好像root才能运行docker
+https://www.reddit.com/r/docker/comments/unghjr/how_do_i_install_docker_on_termux/
+```
+pkg install root-repo
+pkg install docker
+```
