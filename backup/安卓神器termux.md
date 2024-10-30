@@ -39,7 +39,8 @@ https://www.reddit.com/r/docker/comments/unghjr/how_do_i_install_docker_on_termu
 pkg install root-repo
 pkg install docker
 ```
-换一种方式可行：proot-distro
+- 换一种方式可行：proot-distro
+- proot-distro 工具安裝Linux發行版
 ```
 # 安装 proot-distro
 pkg install proot-distro
