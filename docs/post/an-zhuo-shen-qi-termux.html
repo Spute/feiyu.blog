@@ -94,8 +94,28 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>安装python</li>
 <li>安装git<code class="notranslate">apt install git openssh</code></li>
 <li>生产ssh密钥对<code class="notranslate">ssh-keygen -t rsa</code></li>
+<li>开机自启动sshd，在用户根目录下创建<code class="notranslate"> echo "sshd" &gt;&gt; .bashrc</code></li>
 </ul>
-<h1>termux局域网公开sshd连接</h1>
+<h1>内网穿透</h1>
+<p>部署在内网的NAS设备，没有公网IP，如何将这个内网IP对外暴露，让在外的设备能够访问到。有两种方式：</p>
+<ul>
+<li>一种是端口转发，</li>
+<li>一种是VPN实现点对点链接，创建加密隧道连接内外网，类似建立了一个虚拟专用网络。</li>
+<li>Cloudflare Zero Trust开通tunnel：<a href="https://mymuwu.net/?p=1369" rel="nofollow">https://mymuwu.net/?p=1369</a></li>
+</ul>
+<h2>WireGuard协议</h2>
+<p>WireGuard协议必须有个服务端，然后多个客户端，服务端必须在公网IP<br>
+Tailscale 是一种基于 WireGuard 的虚拟组网工具，它在用户态实现了 WireGuard 协议。<br>
+还有一个完全开源的工具headscale。好像要自己部署服务端？</p>
+<ul>
+<li>tailscale实现流程
+<ul>
+<li>注册tailscale：<a href="https://tailscale.com/" rel="nofollow">https://tailscale.com/</a></li>
+<li>分别下载windows、安卓客户端登陆账号</li>
+<li>客户端就可以互相访问</li>
+</ul>
+</li>
+</ul>
 <h2>密码连接</h2>
 <ul>
 <li>开启sshd服务：<code class="notranslate">pkg install openssh 、pkg install openssl</code></li>
@@ -120,6 +140,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 </ol>
 <p>这样设置后，你就可以使用私钥通过SSH连接到已配置公钥的服务器，而无需输入密码。</p>
+<h1>常用软件</h1>
+<p>vim编辑器，设置粘贴模式。在 Vim 中，粘贴模式（Paste Mode）用于防止在粘贴文本时出现不必要的自动缩进、格式化等操作，从而避免格式错乱。<br>
+<code class="notranslate">:set paste</code></p>
 <h1>运行docker</h1>
 <p>好像root才能运行docker<br>
 <a href="https://www.reddit.com/r/docker/comments/unghjr/how_do_i_install_docker_on_termux/" rel="nofollow">https://www.reddit.com/r/docker/comments/unghjr/how_do_i_install_docker_on_termux/</a></p>

@@ -7,9 +7,21 @@
 - 安装python
 - 安装git`apt install git openssh`
 - 生产ssh密钥对`ssh-keygen -t rsa`
+- 开机自启动sshd，在用户根目录下创建` echo "sshd" >> .bashrc`
 
-
-# termux局域网公开sshd连接
+# 内网穿透
+部署在内网的NAS设备，没有公网IP，如何将这个内网IP对外暴露，让在外的设备能够访问到。有两种方式：
+- 一种是端口转发，
+- 一种是VPN实现点对点链接，创建加密隧道连接内外网，类似建立了一个虚拟专用网络。
+- Cloudflare Zero Trust开通tunnel：https://mymuwu.net/?p=1369
+## WireGuard协议
+WireGuard协议必须有个服务端，然后多个客户端，服务端必须在公网IP
+Tailscale 是一种基于 WireGuard 的虚拟组网工具，它在用户态实现了 WireGuard 协议。
+还有一个完全开源的工具headscale。好像要自己部署服务端？
+- tailscale实现流程
+  - 注册tailscale：https://tailscale.com/
+  - 分别下载windows、安卓客户端登陆账号
+  - 客户端就可以互相访问
 
 ## 密码连接
 - 开启sshd服务：`pkg install openssh 、pkg install openssl`
@@ -30,6 +42,11 @@
    - 在目标服务器（例如Termux中的SSH服务器）上，打开或创建`~/.ssh/authorized_keys`文件，并将公钥粘贴到文件中。
 
 这样设置后，你就可以使用私钥通过SSH连接到已配置公钥的服务器，而无需输入密码。
+
+# 常用软件
+vim编辑器，设置粘贴模式。在 Vim 中，粘贴模式（Paste Mode）用于防止在粘贴文本时出现不必要的自动缩进、格式化等操作，从而避免格式错乱。
+`:set paste`
+
 
 
 # 运行docker
