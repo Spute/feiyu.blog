@@ -1,5 +1,4 @@
 
-
 # 问题
 
 1. <strong>创建一个新的 Python 虚拟环境后，默认安装的最小包集合包括哪些？</strong>
@@ -62,6 +61,7 @@
 - devpi：PyPI server and packaging/testing/release tool
 - pyenv:多 python 版本控制管理
 - 软件包依赖关系规范：[https://peps.python.org/pep-0508/](https://peps.python.org/pep-0508/)
+- Pipenv是Python的依赖管理工具，结合了pip和virtualenv的功能。
 
 # package 开发者模式
 

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>非鱼的Blog</title><link>https://Spute.github.io/feiyu.blog</link><description>不用完美</description><copyright>非鱼的Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.com/Spute/feiyu.blog/blob/main/icons8-fish-100.png?raw=true</url><title>avatar</title><link>https://Spute.github.io/feiyu.blog</link></image><lastBuildDate>Mon, 11 Nov 2024 08:43:13 +0000</lastBuildDate><managingEditor>非鱼的Blog</managingEditor><ttl>60</ttl><webMaster>非鱼的Blog</webMaster><item><title>python优雅分组</title><link>https://Spute.github.io/feiyu.blog/post/python-you-ya-fen-zu.html</link><description>- 以前的我处理分组&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>非鱼的Blog</title><link>https://Spute.github.io/feiyu.blog</link><description>不用完美</description><copyright>非鱼的Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.com/Spute/feiyu.blog/blob/main/icons8-fish-100.png?raw=true</url><title>avatar</title><link>https://Spute.github.io/feiyu.blog</link></image><lastBuildDate>Tue, 12 Nov 2024 04:05:35 +0000</lastBuildDate><managingEditor>非鱼的Blog</managingEditor><ttl>60</ttl><webMaster>非鱼的Blog</webMaster><item><title>python优雅分组</title><link>https://Spute.github.io/feiyu.blog/post/python-you-ya-fen-zu.html</link><description>- 以前的我处理分组&#13;
 ```&#13;
 groups = {}&#13;
 numbers = [1, 2, 1, 3, 2, 4]&#13;
@@ -85,7 +85,6 @@ Base64 是一种常见的编码方式，用于将二进制数据（如图像、�
   - 每轮结束规则：&#13;
     - 每轮可以投掷2次，当本轮球瓶被全部击倒后提前结束本轮&#13;
     - 最后一轮是特例，当第一次投掷全中时，可以再投掷两次；当前两次补中时，可以再投掷一次。</description><guid isPermaLink="true">https://Spute.github.io/feiyu.blog/post/TDD---bao-ling-qiu-ji-fen-ban.html</guid><pubDate>Fri, 11 Oct 2024 06:04:43 +0000</pubDate></item><item><title>Python 打包分发</title><link>https://Spute.github.io/feiyu.blog/post/Python%20-da-bao-fen-fa.html</link><description>&#13;
-&#13;
 # 问题&#13;
 &#13;
 1. &lt;strong&gt;创建一个新的 Python 虚拟环境后，默认安装的最小包集合包括哪些？&lt;/strong&gt;&#13;
