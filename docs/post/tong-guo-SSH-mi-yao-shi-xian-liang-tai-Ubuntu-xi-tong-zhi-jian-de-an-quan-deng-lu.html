@@ -156,7 +156,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>将公钥复制到远程服务器:</li>
 </ol>
 <div class="highlight highlight-source-shell"><pre class="notranslate">ssh-copy-id username@remote_host</pre></div>
-<p>或者手动复制:</p>
+<p>或者手动复制（<strong>手动复制时，谨慎把换行符增加了，否则不生效</strong>）:</p>
 <div class="highlight highlight-source-shell"><pre class="notranslate">cat <span class="pl-k">~</span>/.ssh/id_rsa.pub <span class="pl-k">|</span> ssh username@remote_host <span class="pl-s"><span class="pl-pds">"</span>mkdir -p ~/.ssh &amp;&amp; cat &gt;&gt; ~/.ssh/authorized_keys<span class="pl-pds">"</span></span></pre></div>
 <ol start="3">
 <li>设置远程服务器SSH配置的权限:</li>
@@ -178,7 +178,30 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <pre class="notranslate"><code class="notranslate">PasswordAuthentication no
 </code></pre>
 <p>然后重启SSH服务:</p>
-<div class="highlight highlight-source-shell"><pre class="notranslate">sudo systemctl restart sshd</pre></div></div>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sudo systemctl restart sshd</pre></div>
+<ol start="6">
+<li>检查Termux的sshd配置，确保开启公钥验证:</li>
+</ol>
+<pre class="notranslate"><code class="notranslate"># 在Termux中
+cat $PREFIX/etc/ssh/sshd_config
+
+# 确保包含以下设置:
+PubkeyAuthentication yes
+</code></pre>
+<h1>技巧</h1>
+<p>在~/.ssh/config中添加配置使连接更方便:</p>
+<pre class="notranslate"><code class="notranslate">Host git.flexiv.cloud
+  Hostname git.flexiv.cloud
+  Port 522
+  IdentityFile ~/.ssh/gitlab/id_rsa
+
+Host termux
+  HostName 100.102.133.20
+  Port 8022
+  User u0_a633
+
+</code></pre>
+<p>添加配置后，使用<code class="notranslate">ssh termux</code>就能直接连接远程机器。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

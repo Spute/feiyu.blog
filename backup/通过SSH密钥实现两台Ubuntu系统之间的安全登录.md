@@ -57,7 +57,7 @@ ssh-keygen -t rsa -b 4096
 ```bash
 ssh-copy-id username@remote_host
 ```
-或者手动复制:
+或者手动复制（**手动复制时，谨慎把换行符增加了，否则不生效**）:
 ```bash
 cat ~/.ssh/id_rsa.pub | ssh username@remote_host "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
 ```
@@ -91,3 +91,28 @@ PasswordAuthentication no
 sudo systemctl restart sshd
 ```
 
+6. 检查Termux的sshd配置，确保开启公钥验证:
+```
+# 在Termux中
+cat $PREFIX/etc/ssh/sshd_config
+
+# 确保包含以下设置:
+PubkeyAuthentication yes
+```
+
+
+# 技巧
+在~/.ssh/config中添加配置使连接更方便:
+```
+Host git.flexiv.cloud
+  Hostname git.flexiv.cloud
+  Port 522
+  IdentityFile ~/.ssh/gitlab/id_rsa
+
+Host termux
+  HostName 100.102.133.20
+  Port 8022
+  User u0_a633
+
+```
+添加配置后，使用`ssh termux`就能直接连接远程机器。
