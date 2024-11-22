@@ -10,9 +10,13 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="系统分层是一种设计。">
+<meta name="description" content="# 前言
+
+系统架构图是系统开发、维护和管理过程中不可或缺的工具，它可以帮助开发者更高效地进行系统设计和开发。">
 <meta property="og:title" content="系统分层设计">
-<meta property="og:description" content="系统分层是一种设计。">
+<meta property="og:description" content="# 前言
+
+系统架构图是系统开发、维护和管理过程中不可或缺的工具，它可以帮助开发者更高效地进行系统设计和开发。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://Spute.github.io/feiyu.blog/post/xi-tong-fen-ceng-she-ji.html">
 <meta property="og:image" content="https://github.com/Spute/feiyu.blog/blob/main/icons8-fish-100.png?raw=true">
@@ -73,17 +77,69 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><p>系统分层是一种设计。出发点是为了增加系统的可扩展性。<br>
-分而治之，每一层都有各自的职责，使系统更容易理解和维护。<br>
-定位问题、分解问题、职责划分做到不遗漏不重叠。<br>
-做到有对应的问题在对应的层解决，不会错乱。在错的地方解对问题比在对的地方解错问题更可怕。</p>
-<p>有很多都采用分层的设计，</p>
+<div class="markdown-body" id="postBody"><h1>前言</h1>
+<p>系统架构图是系统开发、维护和管理过程中不可或缺的工具，它可以帮助开发者更高效地进行系统设计和开发。</p>
+<h1>物理部署架构图</h1>
+<p>以下架构图是从物理部署的角度，以组件级别的颗粒度来分解系统的结构。这个系统的整体视图展示了从客户端到后端服务的完整流程，涉及使用的主要技术和框架，描述组件间的交互逻辑。<strong>不涉及功能模块、开发规范等更细节的层面。</strong></p>
 <ul>
-<li>网络模型：应用层、传输层、IP层、网络接口层</li>
-<li>MVC：模型层、视图层、控制层</li>
-<li>AI应用：模型层、数据层、模态层</li>
+<li>服务级别：Web服务、数据库服务、任务队列服务</li>
+<li>组件级别：图中显示了主要的系统组件，如Nginx、Django、数据库等。<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/9d7cd314-21ea-45d9-a35a-22094e379a65"><img src="https://github.com/user-attachments/assets/9d7cd314-21ea-45d9-a35a-22094e379a65" alt="whiteboard_exported_image (2)" style="max-width: 100%;"></a></li>
 </ul>
-<p>怎么就能增加可扩展性？</p></div>
+<h1>一些观点</h1>
+<ul>
+<li>
+<p><strong>谨慎地引入组件</strong>。如无必要，勿增实体。为非必要的功能增加组件，不能带来实际收益，反而带来新的问题。</p>
+<ul>
+<li>如果没有削峰填谷、解耦任务、支持异步需求，不要引入celery任务队列，因为会降低系统可用性（组件增多了，故障的可能性也变大了）。</li>
+</ul>
+</li>
+<li>
+<p><strong>不要超前设计</strong></p>
+<ul>
+<li>数据库读写变成瓶颈时，再考虑做主从同步，分库分表</li>
+</ul>
+</li>
+<li>
+<p><strong>不盲目选择新东西</strong>。微服务架构更新，但不一定比单体架构好。</p>
+<ul>
+<li>业务体量不大、团队较小时，单体架构已经可以满足绝大需求，使用微服务反而会带来运维复杂度增高、技术门槛变高等问题。</li>
+</ul>
+</li>
+</ul>
+<h1>分层架构图</h1>
+<p>整体架构是基于对用户请求流程的拆分。而选择用户请求流程的原因是因为这个流程是稳定的，不会随着公司业务的增长调整而变化。</p>
+<p>因为<strong>架构的本质是系统中不变的那一部分</strong>，如此才能在公司业务增长和变更的时候，保持系统的稳定性和可扩展性。优秀的架构设计犹如一座建筑的地基和框架，虽然内部的装修和布局可能随时变化，但核心结构必须稳固可靠。</p>
+<p>然后分层架构是将用户请求流程拆分成4层，每层负责不同的职责，分而治之，职责划分做到不遗漏不重叠。</p>
+<blockquote>
+<ul>
+<li>展示层作为直接接触用户的第一层，它包含不同类型的客户端，像浏览器、桌面端、移动端。它负责处理用户输入和显示信息给用户。</li>
+<li>业务层是最复杂多变的一层，包含各种业务功能。处理来自表现层的请求，执行相对具体的业务逻辑。</li>
+<li>持久层是衔接了业务层和存储层，负责数据的持久化操作和管理。它将业务逻辑与具体的数据存储实现解耦，提供统一的数据访问接口。</li>
+<li>存储层作为最底层，包含不同类型数据库。负责数据的物理存储和底层操作。它是整个系统的基础设施，是确保数据能够可靠、安全、高效地被存储和读取。</li>
+</ul>
+</blockquote>
+<p>基于这样的分层设计是有许多<strong>优点：</strong></p>
+<blockquote>
+<ol>
+<li>
+<p>分层本质是隔离关注点，这样就能让系统变得直观，容易理解，带来好处是。</p>
+<ol>
+<li>降低开发复杂度。对应的问题只需在对应的层或者组件里解决，就只需考虑更少的逻辑，减少错乱的可能性。</li>
+<li>其次是有利于分工和并行开发。一般展示层由前端负责，业务层由后端负责。分层后可以前后端并行开发，如果有多个后端，每个人负责不同的模块，让并行开发变得更容易。</li>
+<li>还有一个点是可重用性更好，因为分层架构是自顶向下依赖的，低层组件可以被多个高层组件复用，就可以做到一次开发多次使用。比如说，业务层开发一个用户信息查询功能，可以在展示层的多端复用。</li>
+</ol>
+</li>
+<li>
+<p>分层架构的另外一个优势是拓展性好。</p>
+<ol>
+<li>因为分层之后，可以在每层中扩展组件，在组件中扩展功能。并且这个拓展的影响也会比较小，因为这个分层是自顶向下依赖的，也不会跨层依赖。就是说，只要展示层和业务层之间的接口不变，展示层的技术栈调整，不影响业务层。相同的，业务层的技术栈调整也不影响展示层。</li>
+<li>并且呢，就是在业务层和存储层之间插入持久层，本质是一层抽象，如果没有这一层，那业务层需要直接sql去操作mysql数据库，当需要切换到其它数据库时（如Oracle），业务层相关代码就需要大量修改。引入持久层后，只需在持久层中增加相应数据库驱动就可以实现，而业务层无需做任何的修改。</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/7f9e28db-a6f6-4cb5-9d2d-e375a272eb83"><img src="https://github.com/user-attachments/assets/7f9e28db-a6f6-4cb5-9d2d-e375a272eb83" alt="whiteboard_exported_image (3)" style="max-width: 100%;"></a></p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
