@@ -194,7 +194,7 @@ sss
 </li>
 </ol>
 <p>这两种表示方法实际上指的是同一个字符：</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">print</span>(<span class="pl-s">'\1'</span> <span class="pl-c1">==</span> <span class="pl-s">'<span class="pl-cce">\x01</span>'</span>)  <span class="pl-c"># 输出: True</span></pre></div>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">print</span>(<span class="pl-s">'<span class="pl-cce">\1</span>'</span> <span class="pl-c1">==</span> <span class="pl-s">'<span class="pl-cce">\x01</span>'</span>)  <span class="pl-c"># 输出: True</span></pre></div>
 <p>一些额外的说明：</p>
 <ol>
 <li>
@@ -202,7 +202,7 @@ sss
 </li>
 <li>
 <p>你可以使用 <code class="notranslate">ord()</code> 函数查看字符的 ASCII 值：</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">print</span>(<span class="pl-en">ord</span>(<span class="pl-s">'\1'</span>))  <span class="pl-c"># 输出: 1</span>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">print</span>(<span class="pl-en">ord</span>(<span class="pl-s">'<span class="pl-cce">\1</span>'</span>))  <span class="pl-c"># 输出: 1</span>
 <span class="pl-en">print</span>(<span class="pl-en">ord</span>(<span class="pl-s">'<span class="pl-cce">\x01</span>'</span>))  <span class="pl-c"># 输出: 1</span></pre></div>
 </li>
 <li>
@@ -213,7 +213,7 @@ sss
 </li>
 <li>
 <p>从 Python 3 开始，可以使用 '\u0001' 这样的 Unicode 转义序列来表示相同的字符：</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">print</span>(<span class="pl-s">'<span class="pl-cce">\u0001</span>'</span> <span class="pl-c1">==</span> <span class="pl-s">'\1'</span> <span class="pl-c1">==</span> <span class="pl-s">'<span class="pl-cce">\x01</span>'</span>)  <span class="pl-c"># 输出: True</span></pre></div>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">print</span>(<span class="pl-s">'<span class="pl-cce">\u0001</span>'</span> <span class="pl-c1">==</span> <span class="pl-s">'<span class="pl-cce">\1</span>'</span> <span class="pl-c1">==</span> <span class="pl-s">'<span class="pl-cce">\x01</span>'</span>)  <span class="pl-c"># 输出: True</span></pre></div>
 </li>
 </ol>
 <p>这种不同表示方法的存在使得 Python 能够灵活地处理各种编码和特殊字符，但也要求程序员在处理这些字符时要格外小心，特别是在处理二进制数据或特殊协议时。</p></div>

@@ -146,13 +146,13 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">funcs</span> <span class="pl-c1">=</span> []
 <span class="pl-c"># 错误写法</span>
 <span class="pl-k">for</span> <span class="pl-s1">i</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-c1">3</span>):
-    <span class="pl-s1">funcs</span>.<span class="pl-en">append</span>(<span class="pl-k">lambda</span>: <span class="pl-s1">i</span>)  <span class="pl-c"># 所有函数都引用同一个i</span>
+    <span class="pl-s1">funcs</span>.<span class="pl-c1">append</span>(<span class="pl-k">lambda</span>: <span class="pl-s1">i</span>)  <span class="pl-c"># 所有函数都引用同一个i</span>
 <span class="pl-en">print</span>([<span class="pl-en">f</span>() <span class="pl-k">for</span> <span class="pl-s1">f</span> <span class="pl-c1">in</span> <span class="pl-s1">funcs</span>])  <span class="pl-c"># [2, 2, 2]</span>
 
 <span class="pl-s1">funcs</span> <span class="pl-c1">=</span> []
 <span class="pl-c"># 正确写法</span>
 <span class="pl-k">for</span> <span class="pl-s1">i</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-c1">3</span>):
-    <span class="pl-s1">funcs</span>.<span class="pl-en">append</span>(<span class="pl-k">lambda</span> <span class="pl-s1">i</span><span class="pl-c1">=</span><span class="pl-s1">i</span>: <span class="pl-s1">i</span>)  <span class="pl-c"># 每个函数都有自己的i值</span>
+    <span class="pl-s1">funcs</span>.<span class="pl-c1">append</span>(<span class="pl-k">lambda</span> <span class="pl-s1">i</span><span class="pl-c1">=</span><span class="pl-s1">i</span>: <span class="pl-s1">i</span>)  <span class="pl-c"># 每个函数都有自己的i值</span>
 <span class="pl-en">print</span>([<span class="pl-en">f</span>() <span class="pl-k">for</span> <span class="pl-s1">f</span> <span class="pl-c1">in</span> <span class="pl-s1">funcs</span>])  <span class="pl-c"># [0, 1, 2]</span></pre></div>
 <ol start="2">
 <li>可变对象的特殊情况：</li>
@@ -160,13 +160,13 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-c"># 对可变对象要特别小心</span>
 <span class="pl-s1">data</span> <span class="pl-c1">=</span> []
 <span class="pl-s1">f</span> <span class="pl-c1">=</span> <span class="pl-k">lambda</span>: <span class="pl-s1">data</span>
-<span class="pl-s1">data</span>.<span class="pl-en">append</span>(<span class="pl-c1">1</span>)
+<span class="pl-s1">data</span>.<span class="pl-c1">append</span>(<span class="pl-c1">1</span>)
 <span class="pl-en">print</span>(<span class="pl-en">f</span>())  <span class="pl-c"># 输出[1]，因为list是可变对象</span>
 
 <span class="pl-c"># 如果要固定可变对象的状态</span>
 <span class="pl-s1">data</span> <span class="pl-c1">=</span> [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>]
-<span class="pl-s1">f</span> <span class="pl-c1">=</span> <span class="pl-k">lambda</span> <span class="pl-s1">data</span><span class="pl-c1">=</span><span class="pl-s1">data</span>.<span class="pl-en">copy</span>(): <span class="pl-s1">data</span>  <span class="pl-c"># 创建副本作为默认参数</span>
-<span class="pl-s1">data</span>.<span class="pl-en">append</span>(<span class="pl-c1">3</span>)
+<span class="pl-s1">f</span> <span class="pl-c1">=</span> <span class="pl-k">lambda</span> <span class="pl-s1">data</span><span class="pl-c1">=</span><span class="pl-s1">data</span>.<span class="pl-c1">copy</span>(): <span class="pl-s1">data</span>  <span class="pl-c"># 创建副本作为默认参数</span>
+<span class="pl-s1">data</span>.<span class="pl-c1">append</span>(<span class="pl-c1">3</span>)
 <span class="pl-en">print</span>(<span class="pl-en">f</span>())  <span class="pl-c"># 仍然输出[1, 2]</span></pre></div></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
